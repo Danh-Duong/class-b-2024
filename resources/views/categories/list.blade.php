@@ -1,12 +1,14 @@
 
 <h1>Categories</h1>
 @if (session('success'))
-    <p>{{ session('success') }}</p>
+    <p class="success">{{ session('success') }}</p>
 @endif
 
 @if (session('error'))
-    <p>{{ session('error') }}</p>
+    <p class="error">{{ session('error') }}</p>
 @endif
+
+<a href="create"><button class="new">+ Create New Category</button></a>
 
 <table>
     <tr>
@@ -24,8 +26,14 @@
       <td>{{ $category->description }}</td>
       <td>
         <a href="{{ route('categories.edit', $category->id) }}">
-          Edit
+          <button>Edit</button>
         </a>
+
+        <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+        </form>
       </td>
 
     </tr>
@@ -49,5 +57,23 @@
     }
     tr:nth-child(even) {
         background-color: #f9f9f9;
+    }
+    .new{
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: green;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .success{
+      color: green
+    }
+    .error{
+      color: red;
+    }
+    a{
+      text-decoration: none;
     }
 </style>

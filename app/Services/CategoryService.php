@@ -24,4 +24,24 @@ class CategoryService {
             return false;
         }
     }
+
+    
+    public function store($data)
+    {
+        try {
+            return $this->category->create($data);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return false;
+        }
+    }
+
+    public function destroy(Category $category){
+        try {
+            return $category->delete();
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return false;
+        }
+    }
 }
